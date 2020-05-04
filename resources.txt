@@ -1,0 +1,6 @@
+List of Resources
+
+Discord.py Source Code: https://github.com/Rapptz/discord.py
+Discord.py Docs: https://discordpy.readthedocs.io/en/latest/index.html
+
+Logo: https://avatars.alphacoders.com/avatars/view/73068
