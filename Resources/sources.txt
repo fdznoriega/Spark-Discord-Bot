@@ -4,3 +4,6 @@ Discord.js: https://discordjs.guide/creating-your-bot/#logging-in-to-discord
 WriteBots: https://www.writebots.com/how-to-make-a-discord-bot/#The_Easiest_Method_Make_a_Discord_Bot_in_15-Minutes_or_Less
 
 Logo: https://avatars.alphacoders.com/avatars/view/73068
+
+Left off at:
+https://discordjs.guide/creating-your-bot/commands-with-user-input.html#common-situations-with-arguments

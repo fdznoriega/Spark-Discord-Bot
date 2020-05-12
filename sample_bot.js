@@ -17,6 +17,7 @@ client.on('message', message => {
 	if(!message.content.startsWith(prefix) || message.author.bot) return;
 	// split message to get args
 	const args = message.content.slice(prefix.length).split(/ +/);
+	// get first item in args (the command) and move everything left.
 	const command = args.shift().toLowerCase();
 	// now check for entries
 	if(command === 'ping') {
@@ -43,6 +44,22 @@ client.on('message', message => {
 		}
 		const taggedUser = message.mentions.users.first();
 		message.channel.send(`You tried to kick ${taggedUser.username}`);
+	}
+	else if(command === 'avatar') {
+		if(!message.mentions.users.size) {
+			return message.channel.send(
+				`Your avatar: <${message.author.displayAvatarURL(
+					{ format: "png", dynamic: true }
+				)}>`
+			);
+		}
+		const avatarList = message.mentions.users.map(user => {
+			return `${user.username}'s avatar: <${user.displayAvatarURL(
+				{ format: "png", dynamic: true }
+			)}>`;
+		});
+
+		message.channel.send(avatarList);
 	}
 });
 
