@@ -6,4 +6,4 @@ WriteBots: https://www.writebots.com/how-to-make-a-discord-bot/#The_Easiest_Meth
 Logo: https://avatars.alphacoders.com/avatars/view/73068
 
 Left off at:
-https://discordjs.guide/creating-your-bot/commands-with-user-input.html#common-situations-with-arguments
+https://discordjs.guide/command-handling/dynamic-commands.html#dynamically-executing-commands
