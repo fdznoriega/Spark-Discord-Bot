@@ -4,27 +4,27 @@ Index
   !update
 
 
-!rec showName - adds to recommendations; all
+!rec name - adds to recommendations; all
 
   IN
     !rec Natsume Yuujincho
-    !rec showName
+    !rec name
 
   OUT
     (8.35) Natsume Yuujincho
-    (score) showName
+    (score) name
 
-!add showName episode - adds to watch list; moderators
+!add name episode - adds to watch list; moderators
 
   IN
     !add Cowboy Bebop
-    !add showName episode
+    !add name episode
 
   OUT
     Cowboy Bebop (1)
     showName (episode)
 
-!update showName episode - changes current episode; all
+!update name episode - changes current episode; all
 
   IN
     !update Cowboy Bebop 3
