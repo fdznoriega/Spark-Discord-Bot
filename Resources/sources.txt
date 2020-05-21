@@ -1,9 +1,6 @@
 List of Sources
 
 Discord.js: https://discordjs.guide/creating-your-bot/#logging-in-to-discord
-WriteBots: https://www.writebots.com/how-to-make-a-discord-bot/#The_Easiest_Method_Make_a_Discord_Bot_in_15-Minutes_or_Less
+MAL API: https://github.com/jikan-me/jikan
 
 Logo: https://avatars.alphacoders.com/avatars/view/73068
-
-Left off at:
-https://discordjs.guide/command-handling/dynamic-commands.html#dynamically-executing-commands

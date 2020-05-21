@@ -40,6 +40,11 @@ client.on('message', message => {
 		return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 	}
 
+	// check command permissions?
+	// fetch role of member
+	// check if role needed matches role of member
+
+
 	try {
 		command.execute(message, args);
 	} catch (error) {
