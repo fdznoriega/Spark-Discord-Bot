@@ -6,7 +6,8 @@
   "dependencies": {
     "discord.js": "^12.2.0",
     "eslint": "^6.8.0",
-    "jikanjs": "^0.7.0"
+    "jikanjs": "^0.7.0",
+    "lodash": "^4.17.19"
   },
   "devDependencies": {},
   "scripts": {

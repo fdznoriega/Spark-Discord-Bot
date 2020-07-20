@@ -3,4 +3,6 @@ List of Sources
 Discord.js: https://discordjs.guide/creating-your-bot/#logging-in-to-discord
 MAL API: https://github.com/jikan-me/jikan
 
+Collectors: https://discordjs.guide/popular-topics/collectors.html#message-collectors
+
 Logo: https://avatars.alphacoders.com/avatars/view/73068

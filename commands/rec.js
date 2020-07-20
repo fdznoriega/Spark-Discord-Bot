@@ -5,27 +5,56 @@ module.exports = {
   description: 'Adds show to recommendations',
   args: 'true',
   execute(message, args) {
+    // TODO:
+
     // assume argument is ONE show
     const name = args.toString().replace(',', ' ');
-    // try search for the show on MAL
+    let answer = '';
+    let topResult;
+    // search for the show on MAL
     jikanjs.search('anime', name)
-    .then( (response) => {
-      // fetch top result
-      topResult = response.results[0];
-      message.reply(`is this it?\n${topResult.title}\n${topResult.url}`);
-      // get confirmation from user
-    })
-    .catch( (err) => {
-      console.error(err);
-    });
-    //
+      .then(response => {
+        topResult = response.results[0];
+      })
+      .catch( (err) => {
+        console.error(err);
+      });
+    // confirm show found
+    console.log(topResult.title);
 
 
 
 
-    // add item to message
-    // notify
-    // message.reply('your recommendation has been added.');
+    // jikanjs.search('anime', name)
+    //   .then( response => {
+    //     topResult = response.results[0];
+    //   })
+    //   .catch( (err) => {
+    //     console.error(err);
+    //   });
+    // message.reply(`is this it? Reply: Y/N \n${topResult.title}\n${topResult.url}`);
 
+
+
+
+    // jikanjs.search('anime', name)
+    //   .then( response => {
+    //     // fetch top result
+    //     topResult = response.results[0];
+    //   })
+    //   .then( () => {
+    //     console.log(topResult.title);
+    //   })
+    //   .catch( (err) => {
+    //     console.error(err);
+    //   });
+    // message.reply(`is this it? Reply: Y/N \n${topResult.title}\n${topResult.url}`);
+
+
+
+
+
+
+    // confirm top result
   }
 }
