@@ -1,5 +1,5 @@
 const fs = require('fs');
-const eventlist = require('../events.json');
+const eventlist = require('../resources/eventlist.json');
 
 module.exports = {
   name: 'add-event',

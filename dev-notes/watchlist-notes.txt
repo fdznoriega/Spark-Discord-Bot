@@ -1,0 +1,13 @@
+The structure of watchlist.json is explained here
+
+One watchlist OBJECT contains ARRAYS.
+The "winners" array: contains objects with a NAME and EPISODE
+The "candidates" array: contains objects with a NAME and SCORE
+The "notAnime" array: contains only names
+The "finished" array: contains only names
+The "onPause" array: contains objects with a NAME and EPISODE
+The "banished" array: contains only names
+The "rollTide" array: contains only names
+
+Perhaps I could use SQL on this instead of JSON files, but this is a good
+exercise to learn how to use JSON.

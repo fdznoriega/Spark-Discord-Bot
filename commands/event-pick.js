@@ -1,4 +1,4 @@
-const { events } = require('../events.json');
+const { events } = require('../resources/eventlist.json');
 
 module.exports = {
   name: 'pick-event',

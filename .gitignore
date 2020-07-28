@@ -1,5 +1,4 @@
 config.json
-events.json
-events-backup.json
+resources
 node_modules
 .DS_Store

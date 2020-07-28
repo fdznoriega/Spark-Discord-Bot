@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { events } = require('../events.json');
+const { events } = require('../resources/eventlist.json');
 
 module.exports = {
   name: 'events',
