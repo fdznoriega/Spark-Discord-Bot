@@ -40,16 +40,39 @@ client.on('message', message => {
 		return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
 	}
 
-	// check command permissions?
-	// fetch role of member
-	// check if role needed matches role of member
-
-
 	try {
 		command.execute(message, args);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command');
+	}
+
+	// after running command, update the event list
+	if(commandName === 'add-event' || commandName === 'remove-event' || commandName === 'events') {
+		// fetch json list
+		let raw = fs.readFileSync('events.json');
+		let eventlist = JSON.parse(raw);
+		let events = eventlist.events;
+		// generate up to date event list message
+		let newMessageContent = events.join('\n');
+		console.log(newMessageContent);
+		// find 'event' channel using channel ID
+		let eventChannel = client.channels.cache.get('726513238690496604');
+		// check for not null
+		if(eventChannel) {
+			// fetch message using ID
+			eventChannel.messages.fetch('737422202474987551')
+			.then(
+				// edit it here
+				message => message.edit(newMessageContent)
+			)
+			.catch(
+				console.error
+			);
+		}
+		// edit message using message ID: 737402805605630024
+		// replace contents with the array inside events.json
+
 	}
 
 
