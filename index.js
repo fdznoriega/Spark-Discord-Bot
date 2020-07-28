@@ -47,15 +47,14 @@ client.on('message', message => {
 		message.reply('there was an error trying to execute that command');
 	}
 
-	// after running command, update the event list
-	if(commandName === 'add-event' || commandName === 'remove-event' || commandName === 'events') {
+	// after running event command, update the event list
+	if(commandName === 'add-event' || commandName === 'remove-event') {
 		// fetch json list
 		let raw = fs.readFileSync('events.json');
 		let eventlist = JSON.parse(raw);
 		let events = eventlist.events;
 		// generate up to date event list message
 		let newMessageContent = events.join('\n');
-		console.log(newMessageContent);
 		// find 'event' channel using channel ID
 		let eventChannel = client.channels.cache.get('726513238690496604');
 		// check for not null
