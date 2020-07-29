@@ -1,13 +1,15 @@
 const fs = require('fs');
-const { events } = require('../resources/eventlist.json');
+const watchlist = require('../resources/watchlist.json');
 const format = require('../format.js');
 
 module.exports = {
-  name: 'events',
+  name: 'shows',
   description: 'Shows the event list',
   execute(message, args) {
+    // format the watchlist to post it
+    console.log(format);
     message.channel.send(
-      `${format.eventlistMessage()}`
+      `${format.watchlistMessage()}`
     );
   }
 }

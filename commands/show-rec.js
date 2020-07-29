@@ -1,5 +1,5 @@
 const fs = require('fs');
-const watchlist = require('../resources/watchlist2.json');
+const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
   name: 'rec',
@@ -23,7 +23,7 @@ module.exports = {
 
     // update JSON
     let data = JSON.stringify(watchlist, null, 2);
-    fs.writeFileSync('./resources/watchlist2.json', data);
+    fs.writeFileSync('./resources/watchlist.json', data);
 
     // message
     message.channel.send(

@@ -1,7 +1,8 @@
 
-const fs = require('fs')
+const fs = require('fs');
 const { prefix, token } = require('./config.json');
 const Discord = require('discord.js');
+const format = require('./format.js');
 
 // create a new client
 const client = new Discord.Client();
@@ -9,6 +10,20 @@ client.commands = new Discord.Collection();
 
 // fetch command files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+// set event commands that trigger update
+const eventCommands = ["add-event","remove-event"]
+
+// set watchlist commands that trigger update
+const watchlistCommands = [
+	"rec",
+	"update",
+	"finish",
+	"hiatus",
+	"banish",
+	"delete",
+	"win"
+];
 
 // fetch commands FROM files
 for (const file of commandFiles) {
@@ -47,15 +62,8 @@ client.on('message', message => {
 		message.reply('there was an error trying to execute that command');
 	}
 
-	// after running event command, update the event list
-	if(commandName === 'add-event' || commandName === 'remove-event') {
-		// fetch json list
-		let raw = fs.readFileSync('./resources/eventlist.json');
-		let eventlist = JSON.parse(raw);
-		let events = eventlist.events;
-		// generate up to date event list message
-		let newMessageContent = events.join('\n');
-		// find 'event' channel using channel ID
+	// after running event command, update the event message
+	if(eventCommands.includes(commandName)) {
 		let eventChannel = client.channels.cache.get('726513238690496604');
 		// check for not null
 		if(eventChannel) {
@@ -63,19 +71,35 @@ client.on('message', message => {
 			eventChannel.messages.fetch('737422202474987551')
 			.then(
 				// edit it here
-				message => message.edit(newMessageContent)
+				message => message.edit(format.eventlistMessage())
 			)
 			.catch(
 				console.error
 			);
 		}
-		// edit message using message ID: 737402805605630024
-		// replace contents with the array inside events.json
+	}
+
+	// after running the show command, update the show message
+	if(watchlistCommands.includes(commandName)) {
+		let watchlistChannel = client.channels.cache.get('738111678389944342');
+		// check for not null
+		if(watchlistChannel) {
+			// fetch message using ID
+			watchlistChannel.messages.fetch('738150622297325648')
+			.then(
+				// edit it here
+				message => message.edit(format.watchlistMessage())
+			)
+			.catch(
+				console.error
+			);
+		}
 
 	}
 
 
-});
+
+	});
 
 // log in to discord
 client.login(token);
