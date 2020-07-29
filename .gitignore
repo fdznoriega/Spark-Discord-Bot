@@ -2,4 +2,6 @@ config.json
 resources
 node_modules
 dev-notes/watchlist-notes.txt
+dev-notes/watchlist-notes2.txt
+
 .DS_Store

@@ -8,11 +8,11 @@ module.exports = {
   execute(message, args) {
     // format arguments
     let newEvent = args.join(' ');
-
-    // check if already in
-    if(eventlist.events.includes(newEvent)) {
+    let events = eventlist.events;
+    // check if aleady in the event list
+    if(events.map(event => event.toLowerCase()).includes(newEvent.toLowerCase())) {
       message.channel.send(
-        `\'${newEvent}\' is already an event`
+        `\'${newEvent}\' is already in the event list`
       );
       return;
     }
@@ -25,7 +25,7 @@ module.exports = {
 
     // update JSON
     let data = JSON.stringify(eventlist, null, 2);
-    fs.writeFileSync('events.json', data);
+    fs.writeFileSync('./resources/eventlist.json', data);
 
     message.channel.send(
       `Added \'${newEvent}\' to the event list`

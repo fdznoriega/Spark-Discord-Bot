@@ -1,34 +1,14 @@
 Index
-  !rec
-  !add
-  !update
+Event Commands
+  !add-event e - adds the event to the list
+  !remove-event - removes the event from the list
+  !pick-event - picks a random event
+  !events - displays events (used for first time setup)
 
-
-!rec name - adds to recommendations; all
-
-  IN
-    !rec Natsume Yuujincho
-    !rec name
-
-  OUT
-    (8.35) Natsume Yuujincho
-    (score) name
-
-!add name episode - adds to watch list; moderators
-
-  IN
-    !add Cowboy Bebop
-    !add name episode
-
-  OUT
-    Cowboy Bebop (1)
-    showName (episode)
-
-!update name episode - changes current episode; all
-
-  IN
-    !update Cowboy Bebop 3
-    !update name ep
-  OUT
-    Cowboy Bebop (3)
-    name (ep)
+Watchlist Commands
+  !nominate s - adds show to candidate list
+  !hiatus s - adds winner to hiatus section
+  !banish s - adds winner to banished section
+  !update s, # - updates the progress marker
+  !remove s - scans entire JSON and removes item
+  !finished s - adds show to finished section

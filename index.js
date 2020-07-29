@@ -50,7 +50,7 @@ client.on('message', message => {
 	// after running event command, update the event list
 	if(commandName === 'add-event' || commandName === 'remove-event') {
 		// fetch json list
-		let raw = fs.readFileSync('events.json');
+		let raw = fs.readFileSync('./resources/eventlist.json');
 		let eventlist = JSON.parse(raw);
 		let events = eventlist.events;
 		// generate up to date event list message

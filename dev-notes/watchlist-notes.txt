@@ -11,3 +11,6 @@ The "rollTide" array: contains only names
 
 Perhaps I could use SQL on this instead of JSON files, but this is a good
 exercise to learn how to use JSON.
+
+This was written on July 28.
+Structure has changed to make my life easier.
