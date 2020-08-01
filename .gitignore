@@ -1,6 +1,7 @@
 config.json
 format.js
-resources
+resources/eventlist*
+resources/watchlist*
 node_modules
 commands/rohan.js
 commands/url-*
