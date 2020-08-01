@@ -8,13 +8,21 @@ module.exports = {
   execute(message, args) {
     // grab the array
     let events = eventlist.events;
+    let removed = false;
     // format args
     let eventToDelete = args.join(' ');
     // iterate through events
-    if(events.map(event => event.toLowerCase()).includes(eventToDelete.toLowerCase())) {
-      // delete it!
-      let index = events.indexOf(eventToDelete);
-      events.splice(index, 1);
+    let counter = 0;
+    events.map(event => {
+      if(event.toLowerCase() === eventToDelete.toLowerCase()) {
+        events.splice(counter, 1);
+        removed = true;
+        return;
+      }
+      counter++;
+    });
+
+    if(removed) {
       // update
       let data = JSON.stringify(eventlist, null, 2);
       fs.writeFileSync('./resources/eventlist.json', data);
@@ -24,7 +32,6 @@ module.exports = {
       );
     }
     else {
-      // say not found
       message.channel.send(
         `\'${eventToDelete}\' is not in the event list`
       );

@@ -1,6 +1,10 @@
 config.json
+format.js
 resources
 node_modules
+commands/rohan.js
+commands/url-*
+commands/chance-*
 dev-notes/watchlist-notes.txt
 dev-notes/watchlist-notes2.txt
 dev-notes/raw-watchlist.txt

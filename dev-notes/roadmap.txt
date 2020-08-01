@@ -1,10 +1,6 @@
 Roadmap
 
-Features to add:
-Interacting with the watchlist
-  !delete s - scans entire JSON and removes item
-
-Updating the watchlist in the respective channel
+Cleanup of files. Maybe categorize commands into folders??
 
 Features added:
 
@@ -17,23 +13,12 @@ Interacting with the event list through:
 
 Interacting with the watchlist through:
   !rec - add to candidates list
-  !unrec - remove from candidates list
   !shows - displays list of shows (used for setup)
   !update ID, # - updates the progress marker
-  !finished ID - adds show to finished section
+  !finish ID - adds show to finished section
   !hiatus ID - adds winner to hiatus section
   !banish ID - adds winner to banished section
+  !remove - scans all JSON and removes item
 
 
 Duplicate prevention by checking through lowercasing.
-
-> > Randomness
-Functions for RNG in the server
-  !flip - flips a coin
-  !roll num - rolls a dice with 'num' sides
-
-> > URL features
-URL shortcut commands for QoL
-  !codenames
-  !dnd
-  !tier

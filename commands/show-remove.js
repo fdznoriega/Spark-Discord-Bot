@@ -2,7 +2,7 @@ const fs = require('fs');
 const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
-  name: 'delete',
+  name: 'remove',
   description: 'Deletes a show from anywhere on the list',
   args: true,
   execute(message, args) {

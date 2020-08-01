@@ -1,6 +1,7 @@
 
 const fs = require('fs');
-const { prefix, token } = require('./config.json');
+const config = require('./config.json');
+
 const Discord = require('discord.js');
 const format = require('./format.js');
 
@@ -10,20 +11,18 @@ client.commands = new Discord.Collection();
 
 // fetch command files
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-// set event commands that trigger update
-const eventCommands = ["add-event","remove-event"]
-
-// set watchlist commands that trigger update
-const watchlistCommands = [
-	"rec",
-	"update",
-	"finish",
-	"hiatus",
-	"banish",
-	"delete",
-	"win"
+// fetch files that trigger event/watch update
+const eventCommands = ['add-event', 'remove-event'];
+const watchCommands = [
+	'banish',
+	'finish',
+	'hiatus',
+	'rec',
+	'win',
+	'update',
+	'remove'
 ];
+
 
 // fetch commands FROM files
 for (const file of commandFiles) {
@@ -33,6 +32,50 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
+
+// ===== CODE THAT WOULD USE FOLDERS ======
+
+// // fetch folder names (remove DS store and other js files that have not been organized
+// const folders = fs.readdirSync('./commands').filter(
+// 	file => file.charAt(0) != '.' && !file.endsWith('.js')
+// );
+//
+// // array of watchlist/eventlist commands that will force refresh
+// let eventlistFiles = [];
+// let watchlistFiles = [];
+//
+// // iterate through folders
+// for(let i = 0; i < folders.length; i++) {
+// 	// reset command files array
+// 	let commandFiles = [];
+// 	// check if event list or watch list
+// 	if(folders[i] === 'eventlist') {
+// 		// fill event list, then add to command files
+// 		eventlistFiles = fs.readdirSync(`./commands/${folders[i]}`).filter(file => file.endsWith('.js'));
+// 		commandFiles = commandFiles.concat(eventlistFiles);
+// 	}
+// 	else if(folders[i] === 'watchlist') {
+// 		// fill watchlist, then add to command files
+// 		watchlistFiles = fs.readdirSync(`./commands/${folders[i]}`).filter(file => file.endsWith('.js'));
+// 		commandFiles = commandFiles.concat(watchlistFiles);
+// 	}
+// 	else {
+// 		// grab normally
+// 		commandFiles = fs.readdirSync(`./commands/${folders[i]}`).filter(file => file.endsWith('.js'));
+// 	}
+//
+// 	// set commands now since we have folder location and commands list
+// 	for(let j = 0; j < commandFiles.length; j++) {
+// 		const command = require(`./commands/${folders[i]}/${commandFiles[j]}`);
+// 		client.commands.set(command.name, command);
+// 	}
+//
+// }
+
+// ===== CODE THAT WOULD USE FOLDERS ABOVE ======
+
+
+
 // when client is ready, run this
 client.once('ready', () => {
 	console.log('Ready!');
@@ -41,14 +84,16 @@ client.once('ready', () => {
 
 // updates to client on message
 client.on('message', message => {
-	if(!message.content.startsWith(prefix) || message.author.bot) return;
+	if(!message.content.startsWith(config.prefix) || message.author.bot) return;
 
-	const args = message.content.slice(prefix.length).split(/ +/);
+	const args = message.content.slice(config.prefix.length).split(/ +/);
 	const commandName = args.shift().toLowerCase();
 
 	if (!client.commands.has(commandName)) return;
 
 	const command = client.commands.get(commandName);
+
+	console.log(command);
 
 	// check command's arg req
 	if(command.args && !args.length) {
@@ -64,11 +109,11 @@ client.on('message', message => {
 
 	// after running event command, update the event message
 	if(eventCommands.includes(commandName)) {
-		let eventChannel = client.channels.cache.get('726513238690496604');
+		let eventChannel = client.channels.cache.get(config.eventChannelId);
 		// check for not null
 		if(eventChannel) {
 			// fetch message using ID
-			eventChannel.messages.fetch('737422202474987551')
+			eventChannel.messages.fetch(config.eventMessageId)
 			.then(
 				// edit it here
 				message => message.edit(format.eventlistMessage())
@@ -80,12 +125,12 @@ client.on('message', message => {
 	}
 
 	// after running the show command, update the show message
-	if(watchlistCommands.includes(commandName)) {
-		let watchlistChannel = client.channels.cache.get('738111678389944342');
+	if(watchCommands.includes(commandName)) {
+		let watchlistChannel = client.channels.cache.get(config.watchChannelId);
 		// check for not null
 		if(watchlistChannel) {
 			// fetch message using ID
-			watchlistChannel.messages.fetch('738150622297325648')
+			watchlistChannel.messages.fetch(config.watchMessageId)
 			.then(
 				// edit it here
 				message => message.edit(format.watchlistMessage())
@@ -97,9 +142,7 @@ client.on('message', message => {
 
 	}
 
-
-
 	});
 
 // log in to discord
-client.login(token);
+client.login(config.token);
