@@ -79,6 +79,9 @@ for (const file of commandFiles) {
 // when client is ready, run this
 client.once('ready', () => {
 	console.log('Ready!');
+	// client.user.setAvatar('resources/spark.png');
+	client.user.setActivity();
+
 });
 
 
@@ -92,8 +95,6 @@ client.on('message', message => {
 	if (!client.commands.has(commandName)) return;
 
 	const command = client.commands.get(commandName);
-
-	console.log(command);
 
 	// check command's arg req
 	if(command.args && !args.length) {
