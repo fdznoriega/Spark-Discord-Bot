@@ -31,4 +31,9 @@ Simple duplicate prevention for both lists. If
 is already in the list, then
 > cowboy Bebop
 
-won't get added
+won't get added.
+
+## Setup
+
+
+## Example

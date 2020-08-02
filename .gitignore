@@ -3,9 +3,9 @@ format.js
 resources/eventlist*
 resources/watchlist*
 node_modules
+commands/url*
 commands/rohan.js
-commands/url-*
-commands/chance-*
+commands/chance*
 dev-notes/watchlist-notes.txt
 dev-notes/watchlist-notes2.txt
 dev-notes/raw-watchlist.txt

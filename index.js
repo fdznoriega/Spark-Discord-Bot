@@ -9,7 +9,7 @@ const format = require('./format.js');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
-// fetch command files
+// ==== HARD CODED ======
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 // fetch files that trigger event/watch update
 const eventCommands = ['add-event', 'remove-event'];
@@ -32,6 +32,8 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
+// ==== HARD CODED ABOVE
+
 
 // ===== CODE THAT WOULD USE FOLDERS ======
 
@@ -41,8 +43,8 @@ for (const file of commandFiles) {
 // );
 //
 // // array of watchlist/eventlist commands that will force refresh
-// let eventlistFiles = [];
-// let watchlistFiles = [];
+// let eventCommands = [];
+// let watchCommands = [];
 //
 // // iterate through folders
 // for(let i = 0; i < folders.length; i++) {
@@ -71,7 +73,7 @@ for (const file of commandFiles) {
 // 	}
 //
 // }
-
+//
 // ===== CODE THAT WOULD USE FOLDERS ABOVE ======
 
 
@@ -80,7 +82,7 @@ for (const file of commandFiles) {
 client.once('ready', () => {
 	console.log('Ready!');
 	// client.user.setAvatar('resources/spark.png');
-	client.user.setActivity();
+	client.user.setActivity('CrossCode');
 
 });
 
