@@ -4,6 +4,7 @@ const watchlist = require('../resources/watchlist.json');
 module.exports = {
   name: 'win',
   description: 'Adds show from the winners list',
+  type: 'watchlist',
   execute(message, args) {
     // check for empty list
     if(watchlist.candidates.length < 1) {

@@ -3,8 +3,9 @@ const fs = require('fs');
 const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
-  name: 'banish',
-  description: 'Moves show from winnner list to banished list',
+  name: 'finish',
+  description: 'Moves show from winnner list to finished list',
+  type: 'watchlist',
   args: true,
   execute(message, args) {
     if(args.length != 1) {
@@ -35,13 +36,13 @@ module.exports = {
     // splice it out
     winners.splice(index, 1);
     // add it to the finished list
-    watchlist.banished[watchlist.banished.length] = finishedName;
+    watchlist.finished[watchlist.finished.length] = finishedName;
     // write it to the watch list
     let data = JSON.stringify(watchlist, null, 2);
     fs.writeFileSync('./resources/watchlist.json', data);
     // say done
     message.channel.send(
-      `\'${finishedName}\' has been banished!`
+      `We finished \'${finishedName}\'!`
     );
 
 

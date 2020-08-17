@@ -9,81 +9,32 @@ const format = require('./format.js');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
-// ==== HARD CODED ======
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 // fetch files that trigger event/watch update
-const eventCommands = ['add-event', 'remove-event'];
-const watchCommands = [
-	'banish',
-	'finish',
-	'hiatus',
-	'rec',
-	'win',
-	'update',
-	'remove'
-];
-
+const eventCommands = [];
+const watchCommands = [];
 
 // fetch commands FROM files
 for (const file of commandFiles) {
 	// fetch command object
 	const command = require(`./commands/${file}`);
+	// check type for refresh toggles
+	if(command.type === 'watchlist') {
+		watchCommands[watchCommands.length] = command.name;
+	}
+
+	if(command.type === 'eventlist') {
+		eventCommands[eventCommands.length] = command.name;
+	}
 	// set command object to a command slot in the client
 	client.commands.set(command.name, command);
 }
-
-// ==== HARD CODED ABOVE
-
-
-// ===== CODE THAT WOULD USE FOLDERS ======
-
-// // fetch folder names (remove DS store and other js files that have not been organized
-// const folders = fs.readdirSync('./commands').filter(
-// 	file => file.charAt(0) != '.' && !file.endsWith('.js')
-// );
-//
-// // array of watchlist/eventlist commands that will force refresh
-// let eventCommands = [];
-// let watchCommands = [];
-//
-// // iterate through folders
-// for(let i = 0; i < folders.length; i++) {
-// 	// reset command files array
-// 	let commandFiles = [];
-// 	// check if event list or watch list
-// 	if(folders[i] === 'eventlist') {
-// 		// fill event list, then add to command files
-// 		eventlistFiles = fs.readdirSync(`./commands/${folders[i]}`).filter(file => file.endsWith('.js'));
-// 		commandFiles = commandFiles.concat(eventlistFiles);
-// 	}
-// 	else if(folders[i] === 'watchlist') {
-// 		// fill watchlist, then add to command files
-// 		watchlistFiles = fs.readdirSync(`./commands/${folders[i]}`).filter(file => file.endsWith('.js'));
-// 		commandFiles = commandFiles.concat(watchlistFiles);
-// 	}
-// 	else {
-// 		// grab normally
-// 		commandFiles = fs.readdirSync(`./commands/${folders[i]}`).filter(file => file.endsWith('.js'));
-// 	}
-//
-// 	// set commands now since we have folder location and commands list
-// 	for(let j = 0; j < commandFiles.length; j++) {
-// 		const command = require(`./commands/${folders[i]}/${commandFiles[j]}`);
-// 		client.commands.set(command.name, command);
-// 	}
-//
-// }
-//
-// ===== CODE THAT WOULD USE FOLDERS ABOVE ======
-
-
 
 // when client is ready, run this
 client.once('ready', () => {
 	console.log('Ready!');
 	// client.user.setAvatar('resources/spark.png');
 	client.user.setActivity('CrossCode');
-
 });
 
 
@@ -108,6 +59,7 @@ client.on('message', message => {
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command');
+		return;
 	}
 
 	// after running event command, update the event message

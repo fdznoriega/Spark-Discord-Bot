@@ -4,6 +4,7 @@ const eventlist = require('../resources/eventlist.json');
 module.exports = {
   name: 'add-event',
   description: 'Adds an event to the event list',
+  type: 'eventlist',
   args: true,
   execute(message, args) {
     // format arguments

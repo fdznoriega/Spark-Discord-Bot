@@ -4,6 +4,7 @@ const watchlist = require('../resources/watchlist.json');
 module.exports = {
   name: 'remove',
   description: 'Deletes a show from anywhere on the list',
+  type: 'watchlist',
   args: true,
   execute(message, args) {
     const name = args.join(' ');

@@ -4,6 +4,7 @@ const watchlist = require('../resources/watchlist.json');
 module.exports = {
   name: 'rec',
   description: 'Adds show to candidates list',
+  type: 'watchlist',
   execute(message, args) {
     const name = args.join(' ');
     let candidates = watchlist.candidates;

@@ -5,6 +5,7 @@ const watchlist = require('../resources/watchlist.json');
 module.exports = {
   name: 'update',
   description: 'Updates show in the winner list',
+  type: 'watchlist',
   args: true,
   execute(message, args) {
     // args must be ID and EPISODE

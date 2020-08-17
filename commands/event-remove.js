@@ -4,6 +4,7 @@ const eventlist = require('../resources/eventlist.json');
 module.exports = {
   name: 'remove-event',
   description: 'Removes an event from the event list',
+  type: 'eventlist',
   args: true,
   execute(message, args) {
     // grab the array

@@ -3,8 +3,9 @@ const fs = require('fs');
 const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
-  name: 'finish',
-  description: 'Moves show from winnner list to finished list',
+  name: 'hiatus',
+  description: 'Moves show from winnner list to hiatus list',
+  type: 'watchlist',
   args: true,
   execute(message, args) {
     if(args.length != 1) {
@@ -31,17 +32,21 @@ module.exports = {
       return;
     }
     // grab the name
-    let finishedName = winners[index].name;
+    let name = winners[index].name;
+    let episode = winners[index].episode;
     // splice it out
     winners.splice(index, 1);
-    // add it to the finished list
-    watchlist.finished[watchlist.finished.length] = finishedName;
+    // add it to the onpause list
+    watchlist.onPause[watchlist.onPause.length] =
+    {
+      name, episode
+    }
     // write it to the watch list
     let data = JSON.stringify(watchlist, null, 2);
     fs.writeFileSync('./resources/watchlist.json', data);
     // say done
     message.channel.send(
-      `We finished \'${finishedName}\'!`
+      `\'${name}\' is now on hiatus`
     );
 
 

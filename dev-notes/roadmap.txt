@@ -20,5 +20,10 @@ Interacting with the watchlist through:
   !banish ID - adds winner to banished section
   !remove - scans all JSON and removes item
 
-
 Duplicate prevention by checking through lowercasing.
+
+Command Types:
+  watchlist - trigger watchlist refresh
+  eventlist - trigger eventlist refresh
+  meta - refer to the bot (setup, help, beep)
+  url - link urls
