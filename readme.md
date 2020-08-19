@@ -36,8 +36,8 @@ The bot needs four IDs:
 * the ID of the watch-list message itself
 
 ## Future Development
-Currently, the bot only produces one instance of itself across servers.
-In other words, it works on one server at a time. That works fine for me now,
+Currently, the bot only produces one instance of itself across servers
+which means it can only edit one list group at a time. That works now,
 but in the future I'd like to have one instance of the bot manage multiple
 servers. Instead of creating an instance per server, the bot would look at
 the server the message was sent in, and would access an ID json object that
