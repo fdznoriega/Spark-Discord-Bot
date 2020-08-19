@@ -2,7 +2,7 @@
 <img src="resources/banner.png"/>
 </h1>
 
-# Spark - List Manager
+# Spark - [WIP] List Manager
 
 ## Purpose
 My friends and I wanted a way of keeping track of what shows we wanted to watch
