@@ -1,0 +1,28 @@
+{
+  "winners": [
+    {
+      "name": "Cowboy Bebop",
+      "episode": "2"
+    }
+  ],
+  "candidates": [
+    "Durarara!",
+    "Run with the Wind"
+  ],
+  "finished": [
+    "Miracle Train"
+  ],
+  "onPause": [
+    {
+      "name": "Natsume Yujin-cho",
+      "episode": "11"
+    },
+    {
+      "name": "Steins;Gate",
+      "episode": "14"
+    }
+  ],
+  "banished": [
+    
+  ]
+}

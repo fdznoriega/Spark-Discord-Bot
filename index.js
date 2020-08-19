@@ -1,9 +1,8 @@
 
 const fs = require('fs');
 const config = require('./config.json');
-
 const Discord = require('discord.js');
-const format = require('./format.js');
+const format = require('./message-formatter.js');
 
 // create a new client
 const client = new Discord.Client();
@@ -33,8 +32,6 @@ for (const file of commandFiles) {
 // when client is ready, run this
 client.once('ready', () => {
 	console.log('Ready!');
-	// client.user.setAvatar('resources/spark.png');
-	client.user.setActivity('CrossCode');
 });
 
 

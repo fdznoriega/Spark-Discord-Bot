@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { events } = require('../resources/eventlist.json');
-const format = require('../format.js');
+const format = require('../message-formatter.js');
 
 // make admin/mod only because this command is used for setup!
 module.exports = {

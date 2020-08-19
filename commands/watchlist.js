@@ -1,6 +1,6 @@
 const fs = require('fs');
 const watchlist = require('../resources/watchlist.json');
-const format = require('../format.js');
+const format = require('../message-formatter.js');
 
 module.exports = {
   name: 'shows',

@@ -16,7 +16,7 @@ module.exports = {
     data.push(watchlist.candidates.join('\n'));
     data.push("=== Finished ===");
     data.push(watchlist.finished.join('\n'));
-    data.push("=== On Paws uwu ~~ ===");
+    data.push("=== On Pause ===");
     for(let i = 0; i < watchlist.onPause.length; i++) {
       data.push(`${watchlist.onPause[i].name} (${watchlist.onPause[i].episode})`)
     }
