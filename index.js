@@ -61,6 +61,7 @@ client.on('message', message => {
 
 	// after running event command, update the event message
 	if(eventCommands.includes(commandName)) {
+		// TODO: CHECK WHAT SERVER THIS WAS SENT IN AND UPDATE ALL VALUES
 		let eventChannel = client.channels.cache.get(config.eventChannelId);
 		// check for not null
 		if(eventChannel) {
