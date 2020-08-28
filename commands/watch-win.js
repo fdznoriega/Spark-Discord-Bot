@@ -1,5 +1,5 @@
+
 const fs = require('fs');
-const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
   name: 'win',
@@ -11,6 +11,18 @@ module.exports = {
       message.channel.send(
         `Looks like the list is empty. Why not add something?`
       );
+      return;
+    }
+
+    // prepare path using message id
+    let watchlistPath = `../resources/watchlists/${message.guild.id}.json`;
+    // try find the file
+    try {
+      let watchlist = fs.readFileSync(watchlistPath);
+    }
+    catch(err) {
+      console.error(err);
+      message.reply('could not find your watchlist.');
       return;
     }
     // variables!
@@ -46,7 +58,7 @@ module.exports = {
 
     // update
     let data = JSON.stringify(watchlist, null, 2);
-    fs.writeFileSync('./resources/watchlist.json', data);
+    fs.writeFileSync(watchlistPath, data);
     // say done
     message.channel.send(
       `\'${showToAdd}\' is now a winner!`

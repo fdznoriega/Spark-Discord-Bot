@@ -1,6 +1,5 @@
 
 const fs = require('fs');
-const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
   name: 'banish',
@@ -18,6 +17,16 @@ module.exports = {
       message.channel.send(
         `Please input a number (show ID)`
       );
+      return;
+    }
+    // prepare path using message id
+    let watchlistPath = `../resources/watchlists/${message.guild.id}.json`;
+    try {
+      let watchlist = fs.readFileSync(watchlistPath);
+    }
+    catch(err) {
+      console.error(err);
+      message.reply('could not find your watchlist.');
       return;
     }
     // access winners list
@@ -39,7 +48,7 @@ module.exports = {
     watchlist.banished[watchlist.banished.length] = finishedName;
     // write it to the watch list
     let data = JSON.stringify(watchlist, null, 2);
-    fs.writeFileSync('./resources/watchlist.json', data);
+    fs.writeFileSync(watchlistPath, data);
     // say done
     message.channel.send(
       `\'${finishedName}\' has been banished!`

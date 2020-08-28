@@ -2,9 +2,16 @@
 const fs = require('fs');
 
 module.exports = {
-  watchlistMessage() {
+  watchlistMessage(watchMsgId) {
     // read watch list
-    let raw = fs.readFileSync('./resources/watchlist.json');
+    try {
+      let raw = fs.readFileSync(`./resources/watchlists/${watchMsgId}.json`);
+    }
+    catch(error) {
+      console.error(error);
+      return;
+    }
+
     let watchlist = JSON.parse(raw);
     // format
     let data = [];
@@ -26,9 +33,16 @@ module.exports = {
     return data.join('\n');
 
   },
-  eventlistMessage() {
+  eventlistMessage(eventMsgId) {
     // read event list
-    let raw = fs.readFileSync('./resources/eventlist.json');
+    try {
+      let raw = fs.readFileSync(`./resources/eventlists/${eventMsgId}.json`);
+    }
+    catch(error) {
+      console.error(error);
+      return;
+    }
+
     let eventlist = JSON.parse(raw);
     let events = eventlist.events;
     // generate up to date event list message

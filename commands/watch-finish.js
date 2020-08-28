@@ -1,6 +1,5 @@
 
 const fs = require('fs');
-const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
   name: 'finish',
@@ -20,6 +19,18 @@ module.exports = {
       );
       return;
     }
+    // prepare path using message id
+    let watchlistPath = `../resources/watchlists/${message.guild.id}.json`;
+    // try find the file
+    try {
+      let watchlist = fs.readFileSync(watchlistPath);
+    }
+    catch(err) {
+      console.error(err);
+      message.reply('could not find your watchlist.');
+      return;
+    }
+
     // access winners list
     let winners = watchlist.winners;
     // reduce by one -> user inputs "1" to refer to arr[0]
@@ -39,7 +50,7 @@ module.exports = {
     watchlist.finished[watchlist.finished.length] = finishedName;
     // write it to the watch list
     let data = JSON.stringify(watchlist, null, 2);
-    fs.writeFileSync('./resources/watchlist.json', data);
+    fs.writeFileSync(watchlistPath, data);
     // say done
     message.channel.send(
       `We finished \'${finishedName}\'!`

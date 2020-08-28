@@ -1,14 +1,6 @@
 {
   "servers": [
     {
-      "id": "AAAAA",
-      "name": "AAAAA",
-      "watchChannelID": "AAAA",
-      "eventChannelID": "BBBB",
-      "watchMessageID": "AA",
-      "eventMessageID": "BB"
-    },
-    {
       "id": "691799109736333372",
       "name": "miracles do happen",
       "watchChannelId": "748675055780757504",
@@ -20,9 +12,9 @@
       "id": "706554301610328174",
       "name": "bot testing grounds",
       "watchChannelId": "706914789561204757",
-      "eventChannelID": "TBD",
-      "watchMessageId": "748676006889390101",
-      "eventMessageID": "TBD"
+      "eventChannelID": "null",
+      "watchMessageId": "748732245115666512",
+      "eventMessageID": "null"
     }
   ]
 }

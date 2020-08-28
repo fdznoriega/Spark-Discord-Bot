@@ -1,5 +1,4 @@
 const fs = require('fs');
-const eventlist = require('../resources/eventlist.json');
 
 module.exports = {
   name: 'add-event',
@@ -7,6 +6,18 @@ module.exports = {
   type: 'eventlist',
   args: true,
   execute(message, args) {
+    // prepare to search for the eventlist with the message id
+    let eventlistPath = `../resources/eventlists/${message.guild.id}.json`;
+    // make sure it exists
+    try {
+      let eventlist = fs.readFileSync(eventlistPath)
+    }
+    catch(err) {
+      console.error(err);
+      message.reply('could not find your eventlist.');
+      return;
+    }
+
     // format arguments
     let newEvent = args.join(' ');
     let events = eventlist.events;
@@ -26,7 +37,7 @@ module.exports = {
 
     // update JSON
     let data = JSON.stringify(eventlist, null, 2);
-    fs.writeFileSync('./resources/eventlist.json', data);
+    fs.writeFileSync(eventlistPath, data);
 
     message.channel.send(
       `Added \'${newEvent}\' to the event list`
