@@ -33,7 +33,7 @@ Interacting with the **watch-list** through:
 then **cowboy Bebop** won't get added.
 
 ## Setup
-It's easy! Run the `!setup` command to get started. Then:
+It's easy! You can run `!setup` on your server to learn more or:
 * Run `!setup w` in your dedicated watchlist channel to create a new watchlist.
 * Run `!setup e` in your dedicated eventlist channel to create a new eventlist.
 
