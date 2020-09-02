@@ -18,9 +18,10 @@ module.exports = {
 
     // prepare path using message id
     let watchlistPath = `../resources/watchlists/${message.guild.id}.json`;
+    let watchlist;
     // try find the file
     try {
-      let watchlist = fs.readFileSync(watchlistPath);
+      watchlist = fs.readFileSync(watchlistPath);
     }
     catch(err) {
       console.error(err);

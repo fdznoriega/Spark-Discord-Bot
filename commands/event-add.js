@@ -7,21 +7,25 @@ module.exports = {
   args: true,
   execute(message, args) {
     // prepare to search for the eventlist with the message id
-    let eventlistPath = `../resources/eventlists/${message.guild.id}.json`;
+    let eventlist;
+    let eventlistPath = `./resources/eventlists/${message.guild.id}.json`;
+    console.log(`Checking for eventlist at: ${eventlistPath}`);
     // make sure it exists
-    try {
-      let eventlist = fs.readFileSync(eventlistPath)
+    if(fs.existsSync(eventlistPath)) {
+      console.log('Found');
+      raw = fs.readFileSync(eventlistPath);
+      eventlist = JSON.parse(raw);
     }
-    catch(err) {
-      console.error(err);
-      message.reply('could not find your eventlist.');
+    else {
+      console.log('Not found');
       return;
     }
 
     // format arguments
     let newEvent = args.join(' ');
     let events = eventlist.events;
-    // check if aleady in the event list
+
+    // check for duplicates
     if(events.map(event => event.toLowerCase()).includes(newEvent.toLowerCase())) {
       message.channel.send(
         `\'${newEvent}\' is already in the event list`
@@ -29,11 +33,8 @@ module.exports = {
       return;
     }
 
-    // fetch length of array
-    let length = eventlist.events.length;
-
-    // append
-    eventlist.events[length] = newEvent;
+    // add event to events
+    events.push(newEvent);
 
     // update JSON
     let data = JSON.stringify(eventlist, null, 2);

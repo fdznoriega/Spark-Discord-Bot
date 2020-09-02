@@ -2,16 +2,21 @@
 const fs = require('fs');
 
 module.exports = {
-  watchlistMessage(watchMsgId) {
+  watchlistMessage(serverId) {
+    // prepare to grab watchlist
+    let raw;
     // read watch list
-    try {
-      let raw = fs.readFileSync(`./resources/watchlists/${watchMsgId}.json`);
+    let pathToWatchlist = `./resources/watchlists/${serverId}.json`;
+    if(fs.existsSync(pathToWatchlist)) {
+      console.log(`Found watchlist at: ${pathToWatchlist}`);
+      raw = fs.readFileSync(`./resources/watchlists/${serverId}.json`);
     }
-    catch(error) {
-      console.error(error);
-      return;
+    else {
+      console.log('Did not find watchlist. Returning.');
+      return "Could not find your watchlist. Have you made one with !setup w?";
     }
-
+    
+    console.log('Formatting watchlist into message');
     let watchlist = JSON.parse(raw);
     // format
     let data = [];
@@ -20,9 +25,9 @@ module.exports = {
       data.push(`[${i + 1}] ${watchlist.winners[i].name} (${watchlist.winners[i].episode})`)
     }
     data.push("=== Candidates ===");
-    data.push(watchlist.candidates.join('\n'));
+    // data.push(watchlist.candidates.join('\n'));
     data.push("=== Finished ===");
-    data.push(watchlist.finished.join('\n'));
+    // data.push(watchlist.finished.join('\n'));
     data.push("=== On Pause ===");
     for(let i = 0; i < watchlist.onPause.length; i++) {
       data.push(`${watchlist.onPause[i].name} (${watchlist.onPause[i].episode})`)
@@ -33,20 +38,25 @@ module.exports = {
     return data.join('\n');
 
   },
-  eventlistMessage(eventMsgId) {
-    // read event list
-    try {
-      let raw = fs.readFileSync(`./resources/eventlists/${eventMsgId}.json`);
+  eventlistMessage(serverId) {
+    // prepare to grab eventlist
+    let raw;
+    let pathToEventlist = `./resources/eventlists/${serverId}.json`;
+    if(fs.existsSync(pathToEventlist)) {
+      console.log('Found eventlist.');
+      raw = fs.readFileSync(pathToEventlist);
     }
-    catch(error) {
-      console.error(error);
-      return;
+    else {
+      console.log('Did not find eventlist. Returning empty.');
+      return "Could not find your eventlist. Have you made one with !setup e?";
     }
+    
+    console.log('Formatting eventlist into message');
 
     let eventlist = JSON.parse(raw);
     let events = eventlist.events;
     // generate up to date event list message
-    return events.join('\n');
+    return `=== Events ===\n${events.join('\n')}`;
 
   }
 
