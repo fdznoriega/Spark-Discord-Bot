@@ -14,17 +14,21 @@ module.exports = {
       return;
     }
 
-    // prepare path using message id
-    let watchlistPath = `../resources/watchlists/${message.guild.id}.json`;
-    // try find the file
-    try {
-      let watchlist = fs.readFileSync(watchlistPath);
+    let watchlist;
+    let watchlistPath = `./resources/watchlists/${message.guild.id}.json`;
+    console.log(`Checking for watchlist at: ${watchlistPath}`);
+    // make sure it exists
+    if(fs.existsSync(watchlistPath)) {
+      console.log('Found');
+      raw = fs.readFileSync(watchlistPath);
+      watchlist = JSON.parse(raw);
     }
-    catch(err) {
-      console.error(err);
+    else {
+      console.log('Not found');
       message.reply('could not find your watchlist.');
       return;
     }
+    
     // variables!
     const showToAdd = args.join(' ')
     let removed = false;

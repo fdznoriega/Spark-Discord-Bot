@@ -7,13 +7,17 @@ module.exports = {
   args: true,
   execute(message, args) {
     // prepare to search for the eventlist with the message id
-    let eventlistPath = `../resources/eventlists/${message.guild.id}.json`;
+    let eventlist;
+    let eventlistPath = `./resources/eventlists/${message.guild.id}.json`;
+    console.log(`Checking for eventlist at: ${eventlistPath}`);
     // make sure it exists
-    try {
-      let eventlist = fs.readFileSync(eventlistPath);
+    if(fs.existsSync(eventlistPath)) {
+      console.log('Found');
+      raw = fs.readFileSync(eventlistPath);
+      eventlist = JSON.parse(raw);
     }
-    catch(err) {
-      console.error(err);
+    else {
+      console.log('Not found');
       message.reply('could not find your eventlist.');
       return;
     }

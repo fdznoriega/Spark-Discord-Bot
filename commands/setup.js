@@ -17,7 +17,10 @@ module.exports = {
 				`\`\`\`!setup w\`\`\`\n` +
 				`To set up your eventlist, create an eventlist channel and type the following in that channel:\n` +
 				`\`\`\`!setup e\`\`\`\n` +
-				`To restart, delete the bot's watchlist/eventlist message and call either command again.\n` + 
+				`To restart, delete the bot's watchlist/eventlist message and call either command again.\n` +
+				`If at any point the watch/eventlist message does not update:\n` +
+				`- run the setup commands again\n`+
+				`- delete the old message\n` + 
 				`Type \`!help\` for further assistance.`
 			);
 			return;

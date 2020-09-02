@@ -1,14 +1,14 @@
 <h1 align="center">
-<img src="resources/banner.png"/>
+<img src="images/banner.png"/>
 </h1>
 
-# Spark - [WIP] List Manager
+# Spark - List Manager
 
 ## Purpose
 My friends and I wanted a way of keeping track of what shows we wanted to watch
 together, but I got tired of editing my own message over and over.
 
-## Features
+## User Features
 Interacting with the **event-list** through:
 * !events -- display all events
 * !add-event *eventName* -- add event to the list
@@ -25,22 +25,22 @@ Interacting with the **watch-list** through:
 * !banish *ID* -- adds winner to banished section (it was THAT bad)
 * !remove *showName* -- removes the show from anywhere on the list
 
-Simple duplicate prevention for both lists. If **Cowboy Bebop** is already in the list,
+## Some Code Features
+
+* Multiple server support through the use of JSON watchlists/eventlists and a server-info registration checker.
+
+* Simple duplicate prevention through lowercasing. If **Cowboy Bebop** is already in the list,
 then **cowboy Bebop** won't get added.
 
 ## Setup
-The bot needs four IDs:
-* the ID of the channel of the event-list message
-* the ID of the event-list message itself
-* the ID of the channel of the watch-list message
-* the ID of the watch-list message itself
+It's easy! Run the `!setup` command to get started. Then:
+* Run `!setup w` in your dedicated watchlist channel to create a new watchlist.
+* Run `!setup e` in your dedicated eventlist channel to create a new eventlist.
 
-## Future Development
-Currently, the bot only produces one instance of itself across servers
-which means it can only edit one list group at a time. That works now,
-but in the future I'd like to have one instance of the bot manage multiple
-servers. Instead of creating an instance per server, the bot would look at
-the server the message was sent in, and would access an ID json object that
-would contain the four IDs mentioned above. I would do the same thing for the
-event-list and watch-list itself. These values would be edited in a future
-'setup' command.
+You can have one, the other, both, or neither!
+
+## Known Issue (WIP)
+The bot MAY desync, failing to display an update in the eventlist/watchlist message.
+If this happens, simply run `!setup w` or `!setup e` in the channel of the affected
+message and delete the old one. This will restore your registration. I'm still testing 
+to see what causes this.

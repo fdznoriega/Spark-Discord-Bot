@@ -103,18 +103,39 @@ client.on('message', message => {
 	// after running the show command, update the show message
 	// TO DO: UPDATE USING METHOD IN EVENT MESSAGE
 	if(watchCommands.includes(commandName)) {
-		let watchlistChannel = client.channels.cache.get(config.watchChannelId);
-		// check for not null
-		if(watchlistChannel) {
-			// fetch message using ID
-			watchlistChannel.messages.fetch(config.watchMessageId)
-			.then(
-				// edit it here
-				message => message.edit(format.watchlistMessage())
-			)
-			.catch(
-				console.error
-			);
+		// scan server-info.json to find server ID
+		console.log('Reading the server-info file');
+		let raw = fs.readFileSync(`./resources/server-info.json`);
+		let serverInfo = JSON.parse(raw);
+
+		console.log(serverInfo);
+
+		for(let i = 0; i < serverInfo.servers.length; i++) {
+			// find server ID in server info
+			if(serverInfo.servers[i].id === message.guild.id) {
+				console.log(`${message.guild.id} was found in server-info`);
+				// grab watch channel id & watch message id
+				let watchChannelId = serverInfo.servers[i].watchChannelId;
+				console.log(`The watch channel id is: ${watchChannelId}`);
+				let watchMessageId = serverInfo.servers[i].watchMessageId;
+				console.log(`The watch message id is: ${watchMessageId}`);
+
+				// grab watch channel itself
+				let watchChannel = client.channels.cache.get(watchChannelId);
+				console.log(`Grabbed watch channel: ${watchChannel}`);
+				
+				// check null
+				if(watchChannel) {
+					// fetch message using ID
+					console.log('Editing message');
+					watchChannel.messages.fetch(watchMessageId)
+						.then(message => message.edit(format.watchlistMessage(message.guild.id)))
+						.catch(console.error);
+				}
+				
+				return;
+
+			}
 		}
 
 	}

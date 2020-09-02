@@ -6,6 +6,22 @@ module.exports = {
   description: 'Adds show to candidates list',
   type: 'watchlist',
   execute(message, args) {
+    // read the watchlist
+    let watchlist;
+    let watchlistPath = `./resources/watchlists/${message.guild.id}.json`;
+    console.log(`Checking for watchlist at: ${watchlistPath}`);
+    // make sure it exists
+    if(fs.existsSync(watchlistPath)) {
+      console.log('Found');
+      raw = fs.readFileSync(watchlistPath);
+      watchlist = JSON.parse(raw);
+    }
+    else {
+      console.log('Not found');
+      message.reply('could not find your watchlist.');
+      return;
+    }
+    // simplify variables
     const name = args.join(' ');
     let candidates = watchlist.candidates;
     // iterate through candidates list to see if the item is already in
@@ -16,24 +32,8 @@ module.exports = {
       return;
     }
 
-    // prepare path using message id
-    let watchlistPath = `../resources/watchlists/${message.guild.id}.json`;
-    let watchlist;
-    // try find the file
-    try {
-      watchlist = fs.readFileSync(watchlistPath);
-    }
-    catch(err) {
-      console.error(err);
-      message.reply('could not find your watchlist.');
-      return;
-    }
-
-    // fetch length of array
-    let length = watchlist.candidates.length;
-
     // append
-    watchlist.candidates[length] = name;
+    watchlist.candidates.push(name);
 
     // update JSON
     let data = JSON.stringify(watchlist, null, 2);

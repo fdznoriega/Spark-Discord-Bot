@@ -25,9 +25,13 @@ module.exports = {
       data.push(`[${i + 1}] ${watchlist.winners[i].name} (${watchlist.winners[i].episode})`)
     }
     data.push("=== Candidates ===");
-    // data.push(watchlist.candidates.join('\n'));
+    if(watchlist.candidates.length >= 1) {
+      data.push(watchlist.candidates.join('\n'));
+    }
     data.push("=== Finished ===");
-    // data.push(watchlist.finished.join('\n'));
+    if(watchlist.finished.length >= 1) {
+      data.push(watchlist.finished.join('\n'));
+    }
     data.push("=== On Pause ===");
     for(let i = 0; i < watchlist.onPause.length; i++) {
       data.push(`${watchlist.onPause[i].name} (${watchlist.onPause[i].episode})`)

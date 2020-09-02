@@ -18,6 +18,7 @@ module.exports = {
     }
     else {
       console.log('Not found');
+      message.reply('could not find your eventlist.');
       return;
     }
 
