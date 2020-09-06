@@ -6,13 +6,6 @@ module.exports = {
   description: 'Adds show from the winners list',
   type: 'watchlist',
   execute(message, args) {
-    // check for empty list
-    if(watchlist.candidates.length < 1) {
-      message.channel.send(
-        `Looks like the list is empty. Why not add something?`
-      );
-      return;
-    }
 
     let watchlist;
     let watchlistPath = `./resources/watchlists/${message.guild.id}.json`;
@@ -26,6 +19,14 @@ module.exports = {
     else {
       console.log('Not found');
       message.reply('could not find your watchlist.');
+      return;
+    }
+
+    // check for empty list
+    if(watchlist.candidates.length < 1) {
+      message.channel.send(
+        `Looks like the list is empty. Why not add something?`
+      );
       return;
     }
     
