@@ -1,6 +1,5 @@
 
 const fs = require('fs');
-const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
   name: 'update',
@@ -22,6 +21,22 @@ module.exports = {
       );
       return;
     }
+
+    let watchlist;
+    let watchlistPath = `./resources/watchlists/${message.guild.id}.json`;
+    console.log(`Checking for watchlist at: ${watchlistPath}`);
+    // make sure it exists
+    if(fs.existsSync(watchlistPath)) {
+      console.log('Found');
+      raw = fs.readFileSync(watchlistPath);
+      watchlist = JSON.parse(raw);
+    }
+    else {
+      console.log('Not found');
+      message.reply('could not find your watchlist.');
+      return;
+    }
+
     // access winner list
     let winners = watchlist.winners;
     // set the ID and the next episode
@@ -38,7 +53,7 @@ module.exports = {
     winners[index].episode = nextEpisode
     // write it to the watch list
     let data = JSON.stringify(watchlist, null, 2);
-    fs.writeFileSync('./resources/watchlist.json', data);
+    fs.writeFileSync(watchlistPath, data);
     // say done
     message.channel.send(
       `Updated \'${winners[index].name}\'`

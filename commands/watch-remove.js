@@ -1,5 +1,5 @@
+
 const fs = require('fs');
-const watchlist = require('../resources/watchlist.json');
 
 module.exports = {
   name: 'remove',
@@ -10,7 +10,23 @@ module.exports = {
     const name = args.join(' ');
     let removed = false;
     let counter = 0;
-
+    
+    // read the watchlist
+    let watchlist;
+    let watchlistPath = `./resources/watchlists/${message.guild.id}.json`;
+    console.log(`Checking for watchlist at: ${watchlistPath}`);
+    // make sure it exists
+    if(fs.existsSync(watchlistPath)) {
+      console.log('Found');
+      raw = fs.readFileSync(watchlistPath);
+      watchlist = JSON.parse(raw);
+    }
+    else {
+      console.log('Not found');
+      message.reply('could not find your watchlist.');
+      return;
+    }
+    
     // check winners list
     if(watchlist.winners.length >= 1) {
       // scan winners list
@@ -22,7 +38,6 @@ module.exports = {
         counter++;
       });
     }
-
 
     // reset counter
     counter = 0;
@@ -79,7 +94,7 @@ module.exports = {
     if(removed) {
       // update JSON
       let data = JSON.stringify(watchlist, null, 2);
-      fs.writeFileSync('./resources/watchlist.json', data);
+      fs.writeFileSync(watchlistPath, data);
       // say done
       message.channel.send(
         `\'${name}\' was removed from the list`

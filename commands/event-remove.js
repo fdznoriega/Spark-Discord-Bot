@@ -1,5 +1,4 @@
 const fs = require('fs');
-const eventlist = require('../resources/eventlist.json');
 
 module.exports = {
   name: 'remove-event',
@@ -7,6 +6,21 @@ module.exports = {
   type: 'eventlist',
   args: true,
   execute(message, args) {
+    // prepare to search for the eventlist with the message id
+    let eventlist;
+    let eventlistPath = `./resources/eventlists/${message.guild.id}.json`;
+    console.log(`Checking for eventlist at: ${eventlistPath}`);
+    // make sure it exists
+    if(fs.existsSync(eventlistPath)) {
+      console.log('Found');
+      raw = fs.readFileSync(eventlistPath);
+      eventlist = JSON.parse(raw);
+    }
+    else {
+      console.log('Not found');
+      message.reply('could not find your eventlist.');
+      return;
+    }
     // grab the array
     let events = eventlist.events;
     let removed = false;
@@ -26,7 +40,7 @@ module.exports = {
     if(removed) {
       // update
       let data = JSON.stringify(eventlist, null, 2);
-      fs.writeFileSync('./resources/eventlist.json', data);
+      fs.writeFileSync(eventlistPath, data);
       // say done
       message.channel.send(
         `Removed \'${eventToDelete}\' from the event list`
