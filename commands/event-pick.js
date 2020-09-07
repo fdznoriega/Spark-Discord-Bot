@@ -4,6 +4,7 @@ module.exports = {
   name: 'pick-event',
   description: 'Picks an event from the event list',
   type: 'eventlist',
+  aliases: ['pick', 'p'],
   execute(message, args) {
     let eventlist;
     let eventlistPath = `./resources/eventlists/${message.guild.id}.json`;
