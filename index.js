@@ -41,8 +41,7 @@ client.on('message', message => {
 
 	const args = message.content.slice(config.prefix.length).split(/ +/);
 	const commandName = args.shift().toLowerCase();
-	const serverId = message.guild.id;
-
+	
 	if (!client.commands.has(commandName)) return;
 
 	const command = client.commands.get(commandName);
