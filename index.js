@@ -9,22 +9,12 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-// fetch files that trigger event/watch update
-const eventCommands = [];
-const watchCommands = [];
 
 // fetch commands FROM files
 for (const file of commandFiles) {
 	// fetch command object
 	const command = require(`./commands/${file}`);
-	// check type for refresh toggles
-	if(command.type === 'watchlist') {
-		watchCommands.push(command.name);
-	}
 
-	if(command.type === 'eventlist') {
-		eventCommands.push(command.name);
-	}
 	// set command object to a command slot in the client
 	client.commands.set(command.name, command);
 }
@@ -47,6 +37,10 @@ client.on('message', message => {
 
 	if (!command) return;
 
+	// check to make sure it's not an event/watch command
+	if ((command.type === "eventlist" || command.type === "watchlist") && message.channel.type === 'dm') {
+		return message.reply('I can\'t execute that command inside DMs!');
+	}
 
 	// check command's arg req
 	if(command.args && !args.length) {
@@ -63,7 +57,7 @@ client.on('message', message => {
 	}
 
 	// after running event command, update the event message
-	if(eventCommands.includes(commandName)) {
+	if(command.type === "eventlist") {
 		// scan server-info.json to find server ID
 		console.log('Reading the server-info file');
 		let raw = fs.readFileSync(`./resources/server-info.json`);
@@ -103,7 +97,7 @@ client.on('message', message => {
 
 	// after running the show command, update the show message
 	// TO DO: UPDATE USING METHOD IN EVENT MESSAGE
-	if(watchCommands.includes(commandName)) {
+	if(command.type === "watchlist") {
 		// scan server-info.json to find server ID
 		console.log('Reading the server-info file');
 		let raw = fs.readFileSync(`./resources/server-info.json`);
