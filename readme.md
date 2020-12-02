@@ -1,5 +1,5 @@
 <h1 align="center">
-<img src="/images/banner.png"/>
+<img src="/images/spark.png"/>
 </h1>
 
 # Spark - List Manager
